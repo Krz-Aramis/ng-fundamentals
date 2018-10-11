@@ -6,7 +6,6 @@ import { Component } from '@angular/core' ;
 })
 export class EventsListComponent {
 
-  // tslint:disable-next-line:member-ordering
   events = [
     {
       id: 1,
@@ -317,20 +316,5 @@ export class EventsListComponent {
       ]
     }
   ] ;
-
-  // tslint:disable-next-line:member-ordering
-  event = {
-    id: 1,
-    name: 'Angular Connect',
-    date: '9/26/2036',
-    time: '10:00 am',
-    price: 599.99,
-    imageUrl: '/assets/images/angularconnect-shield.png',
-    location: {
-      address: '1057 DT',
-      city: 'London',
-      country: 'England'
-    }
-  };
 
 }
