@@ -1,7 +1,14 @@
 <div class="well hoverwll thumbnail">
   <h2>{{input_event.name}}</h2>
   <div>Date: {{input_event.date}}</div>
-  <div>Time: {{input_event.time}}</div>
+  <div
+    [ngSwitch]="input_event?.time"
+    [ngClass]="getStartTimeClass()"
+    >Time: {{input_event.time}}
+    <span *ngSwitchCase="'8:00 am'">(Early Start)</span>
+    <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
+    <span *ngSwitchDefault>(Normal Start)</span>
+  </div>
   <div>Price: ${{input_event.price}}</div>
   <div>
     <span>Location: {{input_event.location.address}}</span>
