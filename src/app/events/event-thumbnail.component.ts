@@ -21,7 +21,7 @@ export class EventThumbnailComponent {
   getStartTimeStyle(): any {
     // To be used with the [ngStyle] binding on the appropriate HTML element of the template.
     if (this.input_event && this.input_event.time === '8:00 am') {
-      return { color: '#003300', 'font-weight': 'bold'}
+      return { color: '#003300', 'font-weight': 'bold'} ;
     }
     return {} ;
   }
