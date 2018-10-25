@@ -18,5 +18,8 @@ export const appRoutes: Routes = [
   },
   { path: 'events/:id', component: EventDetailsComponent, canActivate: [EventRouteActivator] },
   { path: '404', component: Error404Component },
-  { path: '', redirectTo: '/events', pathMatch: 'full' }
+  { path: '', redirectTo: '/events', pathMatch: 'full' },
+  // Before the hash is the location and name of the file to read
+  // After the hash is the module to load as part of this route.
+  { path: 'user', loadChildren: './app/user/user.module#UserModule' }
 ] ;
