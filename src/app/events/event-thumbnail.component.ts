@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core' ;
+import { IEvent } from './shared/index';
 
 @Component({
   selector: 'event-thumbnail',
@@ -12,7 +13,7 @@ import { Component, Input } from '@angular/core' ;
     `]
 })
 export class EventThumbnailComponent {
-  @Input() input_event: any ;
+  @Input() input_event: IEvent ;
 
   getStartTimeClass() {
     const isEarlyStart = this.input_event && this.input_event.time === '8:00 am';
