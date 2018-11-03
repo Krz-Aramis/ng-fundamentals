@@ -10,20 +10,32 @@
         autocomplete="off">
     <div class="form-group" >
       <label for="userName">User Name:</label>
-      <input  (ngModel)="username"
+      <em *ngIf="loginForm.controls.userName?.invalid &&
+                (loginForm.controls.userName?.touched || mouseoverLogin)
+      ">Required</em>
+      <input  required
+              (ngModel)="username"
               name="userName"
               id="userName"
               type="text" class="form-control" placeholder="User Name..." />
     </div>
     <div class="form-group" >
       <label for="password">Password:</label>
-      <input  (ngModel)="password"
+      <em *ngIf="loginForm.controls.password?.invalid &&
+                (loginForm.controls.password?.touched || mouseoverLogin)
+      ">Required</em>
+      <input  required
+              (ngModel)="password"
               name="password"
               id="password"
               type="password" class="form-control"placeholder="Password..." />
     </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <span (mouseenter)="mouseoverLogin=true"
+          (mouseleave)="mouseoverLogin=false">
+      <button [disabled]="loginForm.invalid"
+              type="submit" class="btn btn-primary">Login</button>
+    </span>
     <button
             type="button"
             (click)="cancel()"

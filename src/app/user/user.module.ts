@@ -19,12 +19,12 @@ import { LoginComponent } from './login.component';
     ProfileComponent,
     LoginComponent
   ],
+  // We do not put the AuthService here
+  // because we will need it in other part of the application.
+  // Providers are shared across ALL modules of a given application,
+  // hence why placing the AuthService in the app module is enough.
+  // This rule DOES NOT apply to imports and declarations!
   providers: [
-    // We do not put the AuthService here
-    // because we will need it in other part of the application.
-    // Providers are shared across ALL modules of a given application,
-    // hence why placing the AuthService in the app module is enough.
-    // This rule DOES NOT apply to imports and declarations!
   ],
 })
 export class UserModule { }
