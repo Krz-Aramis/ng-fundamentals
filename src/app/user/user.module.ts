@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { userRoutes } from './user.routes';
 import { ProfileComponent } from './profile.component';
@@ -11,6 +11,7 @@ import { LoginComponent } from './login.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     // As this is a lazy loaded module, we are not allowed to
     // import the BrowserModule
     RouterModule.forChild(userRoutes)
@@ -25,6 +26,7 @@ import { LoginComponent } from './login.component';
   // hence why placing the AuthService in the app module is enough.
   // This rule DOES NOT apply to imports and declarations!
   providers: [
+
   ],
 })
 export class UserModule { }
