@@ -7,8 +7,11 @@ import { ISession } from '../shared/index';
 })
 
 export class SessionListComponent implements OnInit {
+
   @Input() sessions: ISession[] ;
   constructor() { }
 
   ngOnInit() { }
+
+
 }

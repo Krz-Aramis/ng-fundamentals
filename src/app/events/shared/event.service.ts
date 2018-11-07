@@ -25,6 +25,17 @@ export class EventService {
     newEvent.sessions = [] ;
     EVENTS.push(newEvent);
   }
+
+  updateEvent(event: IEvent) {
+    // Find the existing event in the array and replace its data with the refresh set.
+    // therefore:
+    // loop through event elements of EVENTS, call this instance "x"
+    // now compare "x.id" to the passed in event ID.
+    // if they are equal, then set the index accordingly.
+    let index = EVENTS.findIndex(x => x.id === event.id);
+    EVENTS[index] = event;
+    return null ;
+  }
 }
 
 const EVENTS: IEvent[] = [
