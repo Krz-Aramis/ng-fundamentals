@@ -1,3 +1,5 @@
+import { ISession } from './session.model';
+
 export interface IEvent {
   id: number;
   name: string;
@@ -12,14 +14,4 @@ export interface IEvent {
   };
   onlineUrl?: string;
   sessions: ISession[];
-}
-
-export interface ISession {
-  id: number;
-  name: string;
-  presenter: string;
-  duration: number;
-  level: string;
-  abstract: string;
-  voters: string[];
 }

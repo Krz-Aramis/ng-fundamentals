@@ -28,25 +28,36 @@
 
   <div class="row">
     <div class="col-md-2">
-      <h3 style="margin:0">Sessions</h3>
+      <h3 style="margin:0px">Sessions</h3>
     </div>
-    <div class="cold-md-7" style="margin-bottom: 10px;" >
+    <div class="col-md-7" style="margin-bottom: 10px;" >
+        <div class="btn-group btn-group-sm"
+              style="margin-left: 20px ; margin-right: 20px" >
+          <button class="btn btn-default"
+                  [class.active]="sortBy==='name'"
+                  (click)="sortBy='name'">By Name</button>
+          <button class="btn btn-default"
+                  [class.active]="sortBy==='votes'"
+                  (click)="sortBy='votes'">By Votes</button>
+        </div>
       <!-- The active class is set depending on the filter's state or value.
         Instead of the calling a function, the click event changes the value of
         a property directly on the component.
       -->
-      <button class="btn btn-default"
-              [class.active]="filterBy==='all'"
-              (click)="filterBy='all'">All</button>
-      <button class="btn btn-default"
-              [class.active]="filterBy==='beginner'"
-              (click)="filterBy='beginner'">Beginner</button>
-      <button class="btn btn-default"
-              [class.active]="filterBy==='intermediate'"
-              (click)="filterBy='intermediate'">Intermediate</button>
-      <button class="btn btn-default"
-              [class.active]="filterBy==='advanced'"
-              (click)="filterBy='advanced'">Advanced</button>
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-default"
+                [class.active]="filterBy==='all'"
+                (click)="filterBy='all'">All</button>
+        <button class="btn btn-default"
+                [class.active]="filterBy==='beginner'"
+                (click)="filterBy='beginner'">Beginner</button>
+        <button class="btn btn-default"
+                [class.active]="filterBy==='intermediate'"
+                (click)="filterBy='intermediate'">Intermediate</button>
+        <button class="btn btn-default"
+                [class.active]="filterBy==='advanced'"
+                (click)="filterBy='advanced'">Advanced</button>
+      </div>
     </div>
     <div class="col-md-2">
       <a (click)="addSession()">Add Session</a>
@@ -58,6 +69,7 @@
     -->
     <session-list *ngIf="!addMode"
                   [filterBy]="filterBy"
+                  [sortBy]="sortBy"
                   [sessions]="event?.sessions"></session-list>
     <create-session *ngIf="addMode"
                     (saveNewSession)="saveNewSession($event)"

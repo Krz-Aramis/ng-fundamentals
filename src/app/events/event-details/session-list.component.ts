@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { ISession } from '../shared/index';
+import { ISession, sortByNameAsc, sortByVotesDesc } from '../shared/index';
 
 @Component({
   selector: 'session-list',
@@ -10,6 +10,7 @@ export class SessionListComponent implements OnInit, OnChanges {
 
   @Input() sessions: ISession[] ;
   @Input() filterBy: string;
+  @Input() sortBy: string;
   visibleSessions: ISession[] = [] ;
 
   constructor() { }
@@ -22,6 +23,8 @@ export class SessionListComponent implements OnInit, OnChanges {
     if (this.sessions) {
       // we will not filter on empty data
       this.filterSessions(this.filterBy);
+      'name' === this.sortBy ? this.visibleSessions.sort(sortByNameAsc)
+                             : this.visibleSessions.sort(sortByVotesDesc);
     }
   }
 
@@ -41,6 +44,4 @@ export class SessionListComponent implements OnInit, OnChanges {
       );
     }
   }
-
-
 }
