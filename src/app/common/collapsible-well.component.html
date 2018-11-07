@@ -1,6 +1,16 @@
 <div (click)="toggleContent()"
       class="well pointable">
-      <h4 class="well-title">{{title}}</h4>
+      <h4>
+        <!-- We are using a standard selector
+          to tell Angular to place inside NG-CONTENT
+          whatever DOM element(s) matches.
+          Observe that this an attribute selector (class and id may be used);
+          with this approach we drastically limit the possible of collision with
+          existing CSS styles classes or IDs.
+        -->
+        <ng-content select="[well-title]"
+        ></ng-content>
+      </h4>
       <!--
         Below is a special Angular specific tag.
         It means that whatever is embedded within *this component selector*
@@ -8,5 +18,5 @@
         Check the session list component and observe that some HTML is defined within
         this component.
       -->
-      <ng-content *ngIf="visible"></ng-content>
+      <ng-content *ngIf="visible" select="[well-body]"></ng-content>
 </div>
