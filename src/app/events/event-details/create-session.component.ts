@@ -1,3 +1,4 @@
+import {Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISession, restrictedWords } from '../shared/index';
@@ -24,7 +25,7 @@ export class CreateSessionComponent implements OnInit {
   level: FormControl;
   abstract: FormControl;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.name = new FormControl('', Validators.required);
@@ -59,5 +60,9 @@ export class CreateSessionComponent implements OnInit {
       voters: []
     } ;
     console.log(session);
+  }
+
+  cancel() {
+    this.router.navigate(['events']);
   }
 }
