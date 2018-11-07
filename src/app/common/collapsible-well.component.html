@@ -1,0 +1,12 @@
+<div (click)="toggleContent()"
+      class="well pointable">
+      <h4 class="well-title">{{title}}</h4>
+      <!--
+        Below is a special Angular specific tag.
+        It means that whatever is embedded within *this component selector*
+        needs to be placed below.
+        Check the session list component and observe that some HTML is defined within
+        this component.
+      -->
+      <ng-content *ngIf="visible"></ng-content>
+</div>

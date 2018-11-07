@@ -17,7 +17,9 @@ import {
 
 import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
-import { ToastrService } from './common/toastr.service' ;
+import { ToastrService,
+         CollapsibleWellComponent
+} from './common/index' ;
 import { appRoutes } from '../routes';
 import { Error404Component } from './error/404.component';
 import { AuthService } from './user/auth.service';
@@ -32,7 +34,8 @@ import { AuthService } from './user/auth.service';
     NavBarComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent
   ],
   imports: [
     BrowserModule,
