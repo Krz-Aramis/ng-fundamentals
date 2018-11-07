@@ -26,7 +26,6 @@ import { LoginComponent } from './login.component';
   // hence why placing the AuthService in the app module is enough.
   // This rule DOES NOT apply to imports and declarations!
   providers: [
-
   ],
 })
 export class UserModule { }
