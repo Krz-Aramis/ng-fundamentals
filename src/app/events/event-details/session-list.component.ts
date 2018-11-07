@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ISession } from '../shared/index';
 
 @Component({
@@ -6,12 +6,41 @@ import { ISession } from '../shared/index';
   templateUrl: 'session-list.component.html'
 })
 
-export class SessionListComponent implements OnInit {
+export class SessionListComponent implements OnInit, OnChanges {
 
   @Input() sessions: ISession[] ;
+  @Input() filterBy: string;
+  visibleSessions: ISession[] = [] ;
+
   constructor() { }
 
   ngOnInit() { }
+
+  // this function is triggered whenever the Input properties
+  // of this component change.
+  ngOnChanges() {
+    if (this.sessions) {
+      // we will not filter on empty data
+      this.filterSessions(this.filterBy);
+    }
+  }
+
+  filterSessions(filter: string) {
+    if ('all' === filter) {
+      // We do not want to point to all of the session array.
+      // Rather we required a fresh new copy which we achieve using the slice method.
+      this.visibleSessions = this.sessions.slice(0);
+    } else {
+      // Every element that returns true will be added to this brand new array.
+      this.visibleSessions = this.sessions.filter(
+        // for each session in the sessions array
+        session => {
+          // return elements whose level match the given filter
+          return session.level.toLocaleLowerCase() === filter ;
+        }
+      );
+    }
+  }
 
 
 }

@@ -30,12 +30,34 @@
     <div class="col-md-2">
       <h3 style="margin:0">Sessions</h3>
     </div>
+    <div class="cold-md-7" style="margin-bottom: 10px;" >
+      <!-- The active class is set depending on the filter's state or value.
+        Instead of the calling a function, the click event changes the value of
+        a property directly on the component.
+      -->
+      <button class="btn btn-default"
+              [class.active]="filterBy==='all'"
+              (click)="filterBy='all'">All</button>
+      <button class="btn btn-default"
+              [class.active]="filterBy==='beginner'"
+              (click)="filterBy='beginner'">Beginner</button>
+      <button class="btn btn-default"
+              [class.active]="filterBy==='intermediate'"
+              (click)="filterBy='intermediate'">Intermediate</button>
+      <button class="btn btn-default"
+              [class.active]="filterBy==='advanced'"
+              (click)="filterBy='advanced'">Advanced</button>
+    </div>
     <div class="col-md-2">
       <a (click)="addSession()">Add Session</a>
     </div>
   </div>
 
+    <!-- We specify how the child component is supposed to filter the session data
+      therefore we are passing the filter value down to it.
+    -->
     <session-list *ngIf="!addMode"
+                  [filterBy]="filterBy"
                   [sessions]="event?.sessions"></session-list>
     <create-session *ngIf="addMode"
                     (saveNewSession)="saveNewSession($event)"

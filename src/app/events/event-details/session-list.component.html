@@ -1,4 +1,8 @@
-<div class="row" *ngFor="let session of sessions">
+<!-- We iterate over a subset of sessions
+  not the sessions given to the component
+  as these may be filtered.
+-->
+<div class="row" *ngFor="let session of visibleSessions">
   <div class="col-md-10">
     <collapsible-well [title]="session.name">
       <!-- We give this DIV a unique attribute so that its content
