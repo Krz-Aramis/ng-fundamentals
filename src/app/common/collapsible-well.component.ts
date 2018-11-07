@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'collapsible-well.component.html'
 })
 export class CollapsibleWellComponent implements OnInit {
-  visible: boolean = false ;
+  visible: boolean = true ;
 
   constructor() { }
 
