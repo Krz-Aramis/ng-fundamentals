@@ -9,7 +9,7 @@ import { IEvent } from './shared/index';
     .bold { font-weight: bold; }
     .pad-left { margin-left: 10px ; }
     .well div{ color: #bbb; }
-    .thumbnail { min-height: 210px; }
+    .thumbnail { min-height: 240px; }
     `]
 })
 export class EventThumbnailComponent {
