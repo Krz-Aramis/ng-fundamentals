@@ -42,14 +42,36 @@
           </li>
         </ul>
       </div>
-      <form id="searchForm"  class="navbar-form navbar-right"  >
+      <form id="searchForm"
+            class="navbar-form navbar-right"
+            (ngSubmit)="searchSessions(searchTerm)"
+            >
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search Sessions" >
+          <input type="text"
+                 class="form-control"
+                 placeholder="Search Sessions"
+                 [(ngModel)]="searchTerm"
+                 name="searchTerm">
         </div>
-        <button class="btn btn-default" >
+        <!-- modal-trigger is a directive. This allows for adding functionality to existing DOM elements.
+          In this instance, we want to introduce a level of indirection between our component and jQuery.
+          So that, if opening/closing the modal in the future changes, this NAV-BAR component is unaffected.
+        -->
+        <button modal-trigger
+                class="btn btn-default" >
           Search
         </button>
       </form>
     </div>
   </div>
 </div>
+
+<simple-modal title="Matching Sessions" >
+  <div class="list-group">
+    <a  class="list-group-item"
+        *ngFor="let session of foundSessions"
+        [routerLink]="['/events', session.eventId]">
+        {{session.name}}
+      </a>
+  </div>
+</simple-modal>

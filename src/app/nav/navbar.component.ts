@@ -1,3 +1,4 @@
+import {ISession, EventService} from '../events/shared/index';
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../user/auth.service';
@@ -14,7 +15,21 @@ import { AuthService } from '../user/auth.service';
 })
 
 export class NavBarComponent implements OnInit {
-  constructor(private auth: AuthService) { }
+  searchTerm: string = '';
+  foundSessions: ISession[];
+
+  constructor(private auth: AuthService,
+              private eventService: EventService) { }
 
   ngOnInit() { }
+
+  searchSessions(searchTerm: string) {
+    this.eventService.searchSessions(searchTerm).subscribe(
+      // returns observable which is an array of ISession, therefore for each of these array assign them to our local variable
+      sessions => {
+        this.foundSessions = sessions ;
+        console.log(this.foundSessions);
+      }
+    );
+  }
 }

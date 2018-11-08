@@ -20,7 +20,10 @@ import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
 import { TOASTR_TOKEN,
          Toastr,
-         CollapsibleWellComponent
+         CollapsibleWellComponent,
+         JQ_TOKEN,
+         SimpleModalComponent,
+         ModalTriggerDirective
 } from './common/index' ;
 import { appRoutes } from '../routes';
 import { Error404Component } from './error/404.component';
@@ -28,6 +31,9 @@ import { AuthService } from './user/auth.service';
 
 // This let's Angular know that there ALREADY is a global object named toastr.
 declare let toastr: Toastr;
+declare let jQuery: Object;
+//declare let jQuery: window['$'];
+//let jQuery: window['$'];
 
 @NgModule({
   declarations: [
@@ -41,7 +47,9 @@ declare let toastr: Toastr;
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
-    DurationPipe
+    DurationPipe,
+    SimpleModalComponent,
+    ModalTriggerDirective
   ],
   imports: [
     BrowserModule,
@@ -53,6 +61,10 @@ declare let toastr: Toastr;
               {
                 provide: TOASTR_TOKEN,
                 useValue: toastr
+              },
+              {
+                provide: JQ_TOKEN,
+                useValue: jQuery
               },
               EventRouteActivator,
               {
