@@ -80,9 +80,25 @@
               />
     </div>
 
-    <div ngModelGroup="location">
+    <!-- We are creating/adding a business specific validator via an Angular Directive .
+      The challenge/complexity here is that the data within the LOCATION form group has to be
+      checked along with the data in a sibling component, the onlineUrl.
+      Therefore, our validator will need reference/access to both sibling in order to perform
+      its logic.
+    -->
+    <!-- In order to achieve this we also need to provide the validator with a maximum amount of information.
+      Therefore we are also defining the FormGroup as an ngModelGroup using a local reference variable.
+      What Angular is doing is ADDING the location as a ngModelGroup to the local variable.
+    -->
+    <div  ngModelGroup="location"
+          validateLocation
+          #locationGroup="ngModelGroup"
+          >
       <div class="form-group">
         <label for="address">Event Location:</label>
+        <em *ngIf="locationGroup?.invalid && locationGroup?.touched">
+          Either the full address OR the Online URL must be provided.
+        </em>
         <input
                 (ngModel)="newEvent.address"
                 name="address"
@@ -118,6 +134,9 @@
 
     <div class="form-group">
       <label for="onlineUrl">Online Url:</label>
+      <!-- Observe that we are using a local reference.
+        Local references are available to both sibblings and children nodes.
+      -->
       <input
               (ngModel)="newEvent.onlineUrl"
               name="onlineUrl"
@@ -125,6 +144,7 @@
               type="text"
               class="form-control"
               placeholder="Online Url..."
+              (change)="locationGroup.control.controls.address.updateValueAndValidity()"
               />
     </div>
     <div
@@ -160,7 +180,10 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="newEventForm.invalid"
+            >Save</button>
     <button type="button"
             class="btn btn-default" (click)="cancel()">Cancel</button>
   </form>
