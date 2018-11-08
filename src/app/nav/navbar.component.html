@@ -57,7 +57,9 @@
           In this instance, we want to introduce a level of indirection between our component and jQuery.
           So that, if opening/closing the modal in the future changes, this NAV-BAR component is unaffected.
         -->
-        <button modal-trigger
+        <!-- Observe that we are specifying WHICH element this button is the trigger for.
+        -->
+        <button modal-trigger="searchResults"
                 class="btn btn-default" >
           Search
         </button>
@@ -66,7 +68,8 @@
   </div>
 </div>
 
-<simple-modal title="Matching Sessions" >
+<simple-modal elementId="searchResults"
+              title="Matching Sessions" >
   <div class="list-group">
     <a  class="list-group-item"
         *ngFor="let session of foundSessions"
