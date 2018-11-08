@@ -1,4 +1,6 @@
-<div id="{{elementId}}"
+<!-- We declare the local reference variable that we can use as part of the ViewChild decorator -->
+<div  id="{{elementId}}"
+      #modalcontainer
       class="modal fade"
       tabindex="-1">
       <div class="modal-dialog">
@@ -15,7 +17,7 @@
               {{title}}
             </h4>
           </div>
-          <div class="modal.body">
+          <div class="modal-body" (click)="closeModal()">
             <ng-content></ng-content>
           </div>
         </div>
