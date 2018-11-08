@@ -27,5 +27,5 @@ export const appRoutes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: 'full' },
   // Before the hash is the location and name of the file to read
   // After the hash is the module to load as part of this route.
-  { path: 'user', loadChildren: 'app/user/user.module#UserModule' }
+  { path: 'user', loadChildren: './app/user/user.module#UserModule' }
 ] ;
