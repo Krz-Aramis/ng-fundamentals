@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService, IEvent, ISession } from '../shared/index' ;
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   templateUrl: 'event-details.component.html',
@@ -21,9 +21,15 @@ export class EventDetailsComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.event = this.eventService.getEvent(
-      // the + sign casts the string 'id' to a number
-      +this.route.snapshot.params['id']);
+    this.route.params.forEach(
+      // We loop through the params.
+      // as part of the fat function arrow definition, we specify the type of the inputs; here Params
+      (params: Params) => {
+        // the + sign casts the string 'id' to a number
+        this.event = this.eventService.getEvent(+params['id']);
+        this.addMode = false;
+      }
+    );
   }
 
   addSession() {
