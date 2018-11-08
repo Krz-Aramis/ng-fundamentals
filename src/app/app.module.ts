@@ -18,12 +18,16 @@ import {
 
 import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
-import { ToastrService,
+import { TOASTR_TOKEN,
+         Toastr,
          CollapsibleWellComponent
 } from './common/index' ;
 import { appRoutes } from '../routes';
 import { Error404Component } from './error/404.component';
 import { AuthService } from './user/auth.service';
+
+// This let's Angular know that there ALREADY is a global object named toastr.
+declare let toastr: Toastr;
 
 @NgModule({
   declarations: [
@@ -46,7 +50,10 @@ import { AuthService } from './user/auth.service';
     RouterModule.forRoot(appRoutes)
   ],
   providers: [EventService,
-              ToastrService,
+              {
+                provide: TOASTR_TOKEN,
+                useValue: toastr
+              },
               EventRouteActivator,
               {
                 provide: 'canDeactivateCreateEvent',

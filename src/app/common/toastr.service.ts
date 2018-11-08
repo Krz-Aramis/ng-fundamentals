@@ -1,25 +1,17 @@
-import { Injectable } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
-declare let toastr: any;
+// Note that TOASTR_TOKEN is NOT a string but a JavaScript object.
+// This is useful for dependencies injection as it ensures
+// that either the same object is re-used, or that a distinct
+// object is (depending on need).
+// In Angular, when provided through the dependency injector
+// such objects are often singleton. By avoiding using
+// string, we avoid possible collisions!
+export let TOASTR_TOKEN = new InjectionToken<Toastr>('toastr');
 
-@Injectable()
-export class ToastrService {
-
-  constructor() { }
-
-  success(message: string, title?: string) {
-    toastr.success(message, title);
-  }
-
-  info(message: string, title?: string) {
-    toastr.info(message, title);
-  }
-
-  warning(message: string, title?: string) {
-    toastr.warning(message, title);
-  }
-
-  error(message: string, title?: string) {
-    toastr.error(message, title);
-  }
+export interface Toastr {
+  success(msg: string, title?: string): void;
+  info(msg: string, title?: string): void;
+  warning(msg: string, title?: string): void;
+  error(msg: string, title?: string): void;
 }
