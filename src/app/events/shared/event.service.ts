@@ -1,8 +1,9 @@
 import {catchError} from 'rxjs/internal/operators';
 import { Injectable, EventEmitter } from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IEvent, ISession } from './index';
+import { handleError } from '../../common/handle-error.function';
 
 @Injectable()
 export class EventService {
@@ -11,14 +12,14 @@ export class EventService {
 
   getEvents(): Observable<IEvent[]> {
     return this.http.get<IEvent[]>('/api/events')
-                    .pipe(catchError(this.handleError<IEvent[]>('getEvents', []) ) ) ;
+                    .pipe(catchError(handleError<IEvent[]>('getEvents', []) ) ) ;
                     // Should this method encounter an error we will see 'getEvents' in the logs
                     // The empty array, [], is the default results and its type matches what we "promised" to return.
   }
 
   getEvent(id: number): Observable<IEvent> {
     return this.http.get<IEvent>('/api/events/' + id )
-                    .pipe(catchError(this.handleError<IEvent>('getEvent') ) ) ;
+                    .pipe(catchError(handleError<IEvent>('getEvent') ) ) ;
   }
 
   saveEvent(newEvent: IEvent) {
@@ -37,22 +38,12 @@ export class EventService {
                             newEvent,
                             options
                           )
-             .pipe(catchError(this.handleError<IEvent>('saveEvent')));
+             .pipe(catchError(handleError<IEvent>('saveEvent')));
   }
 
   searchSessions(searchTerm: string): Observable<ISession[]> {
     return this.http.get<ISession[]>('/api/sessions/search?search=' + searchTerm )
-    .pipe(catchError(this.handleError<ISession[]>('searchSessions', []) ) ) ;
-  }
-
-  // Generic way of handling error and still return an observable
-  private handleError<T> (operation = 'operation', result?: T) {
-    // We take in an error and will return an observable
-    // of the SAME type as the one specified in the result's field.
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+    .pipe(catchError(handleError<ISession[]>('searchSessions', []) ) ) ;
   }
 }
 

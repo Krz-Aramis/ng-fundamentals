@@ -68,6 +68,7 @@
       therefore we are passing the filter value down to it.
     -->
     <session-list *ngIf="!addMode"
+                  [eventId]="event?.id"
                   [filterBy]="filterBy"
                   [sortBy]="sortBy"
                   [sessions]="event?.sessions"></session-list>
