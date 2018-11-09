@@ -45,8 +45,13 @@ export class EventDetailsComponent implements OnInit {
     ));
     session.id = nextId + 1;
     this.event.sessions.push(session);
-    this.eventService.updateEvent(this.event);
-    this.addMode = false ;
+    this.eventService.saveEvent(this.event).subscribe(
+      () => {
+        // We could be optimistic and do this regardless (eg place it after the subscribe call)
+        // here this code is placed here for consistentcy
+        this.addMode = false ;
+      }
+    );
   }
 
   cancelAddSession() {
