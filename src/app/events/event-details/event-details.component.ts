@@ -25,20 +25,12 @@ export class EventDetailsComponent implements OnInit {
       // We loop through the params.
       // as part of the fat function arrow definition, we specify the type of the inputs; here Params
       (params: Params) => {
-        // the + sign casts the string 'id' to a number
-        // NOTE: if we do not use "subscribe()" the HTTP call would never be made!
-        this.eventService.getEvent(+params['id']).subscribe(
-          // Here we define a function that is called when the data is returned.
-          // This function is responsible for handling/responding to the data
-          // 1. The return value from the getEvent method is an object of type IEvent
-          //    therefore we cast the return value to the appropriate object type.
-          (event: IEvent) => {
-            // We associate the data we obtained to the field of this component
-            this.event = event ;
-            // We only reset the state of this component IF the HTTP call was successful
-            this.addMode = false;
-          }
-        );
+        // Now that we are using a resolver, the data that we required is already present
+        // event before this component is instanciated.
+        // Therefore instead of calling AGAIN to the HTTP server, we simply load the data directly from the snapshot
+        // NOTE: the 'events' keyword correspond to the property on the object we created as part of the route resolver.
+          this.event = this.route.snapshot.data['event'];
+          this.addMode = false;
       }
     );
   }
