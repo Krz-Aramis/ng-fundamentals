@@ -16,18 +16,9 @@ export class EventService {
                     // The empty array, [], is the default results and its type matches what we "promised" to return.
   }
 
-  // Generic way of handling error and still return an observable
-  private handleError<T> (operation = 'operation', result?: T) {
-    // We take in an error and will return an observable
-    // of the SAME type as the one specified in the result's field.
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
-
-  getEvent(id: number): IEvent {
-    return EVENTS.find(event => event.id === id ) ;
+  getEvent(id: number): Observable<IEvent> {
+    return this.http.get<IEvent>('/api/events/' + id )
+                    .pipe(catchError(this.handleError<IEvent>('getEvent') ) ) ;
   }
 
   saveEvent(newEvent: IEvent) {
@@ -80,6 +71,16 @@ export class EventService {
     }, 100);
 
     return emitter;
+  }
+
+  // Generic way of handling error and still return an observable
+  private handleError<T> (operation = 'operation', result?: T) {
+    // We take in an error and will return an observable
+    // of the SAME type as the one specified in the result's field.
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 }
 

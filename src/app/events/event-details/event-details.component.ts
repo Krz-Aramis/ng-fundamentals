@@ -26,8 +26,19 @@ export class EventDetailsComponent implements OnInit {
       // as part of the fat function arrow definition, we specify the type of the inputs; here Params
       (params: Params) => {
         // the + sign casts the string 'id' to a number
-        this.event = this.eventService.getEvent(+params['id']);
-        this.addMode = false;
+        // NOTE: if we do not use "subscribe()" the HTTP call would never be made!
+        this.eventService.getEvent(+params['id']).subscribe(
+          // Here we define a function that is called when the data is returned.
+          // This function is responsible for handling/responding to the data
+          // 1. The return value from the getEvent method is an object of type IEvent
+          //    therefore we cast the return value to the appropriate object type.
+          (event: IEvent) => {
+            // We associate the data we obtained to the field of this component
+            this.event = event ;
+            // We only reset the state of this component IF the HTTP call was successful
+            this.addMode = false;
+          }
+        );
       }
     );
   }
