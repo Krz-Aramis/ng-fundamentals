@@ -1,6 +1,6 @@
 import {catchError} from 'rxjs/internal/operators';
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { IEvent, ISession } from './index';
 
@@ -22,9 +22,22 @@ export class EventService {
   }
 
   saveEvent(newEvent: IEvent) {
-    newEvent.id = 999;
-    newEvent.sessions = [] ;
-    EVENTS.push(newEvent);
+    let options = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/json'
+        }
+      )
+    };
+    // We care about the data is coming back from the server here (but not always).
+    // Remember that in this application, the use does not specify the required field ID (for the event).
+    // This will be worked out server-side, thus our application needs to obtain the updated Event object.
+    return this.http.post<IEvent>('/api/events',
+                            // Set the body of the request to be the newEvent object passed-in
+                            newEvent,
+                            options
+                          )
+             .pipe(catchError(this.handleError<IEvent>('saveEvent')));
   }
 
   updateEvent(event: IEvent) {

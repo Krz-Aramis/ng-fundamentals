@@ -24,10 +24,17 @@ export class CreateEventComponent implements OnInit {
 
   saveEvent(formValue) {
     console.log(formValue);
-    this.eventService.saveEvent(formValue);
-    this.isDirty = false;
-    this.router.navigate(['/events']);
+    this.eventService.saveEvent(formValue).subscribe(
+      // When the post request succeed, what to do?
+      // We do not care about the data coming back, so define the fat arrow function accordingly
+      () => {
+        // so we reset our status and navigate away
+        this.isDirty = false;
+        this.router.navigate(['/events']);
+      }
+    );
   }
+
   cancel() {
     this.router.navigate(['/events']);
   }
