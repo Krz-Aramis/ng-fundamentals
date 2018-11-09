@@ -12,7 +12,7 @@
   </div>
   <div>Price: {{input_event.price | currency:'EUR'}}</div>
   <div>
-    <span>Location: {{input_event.location.address}}</span>
-    <span class="pad-left">{{input_event.location.city}}, {{input_event.location.country}}</span>
+    <span>Location: {{input_event.location?.address}}</span>
+    <span class="pad-left">{{input_event.location?.city}}, {{input_event.location?.country}}</span>
   </div>
 </div>
