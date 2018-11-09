@@ -11,13 +11,8 @@ export class EventListResolver implements Resolve<any> {
   resolve() {
     // We do not use subscribe() because we need to return the observable back to Angular and
     // the component that displays the data.
-    // To this end, we use pipe and then map the observable back to an observable that is then
-    // pass back to the component/angular.
-    return this.eventService.getEvents().pipe(
-      map(
-        events => events
-      )
-    );
+    // Remember that Resolvers AUTOMATICALLY subscribe to observables!
+    return this.eventService.getEvents();
   }
 
 }

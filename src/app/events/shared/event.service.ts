@@ -1,19 +1,29 @@
+import {catchError} from 'rxjs/internal/operators';
 import { Injectable, EventEmitter } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { IEvent, ISession } from './index';
 
 @Injectable()
 export class EventService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getEvents(): Observable<IEvent[]> {
-    let subject = new Subject<IEvent[]>();
-    setTimeout(() => {
-      subject.next(EVENTS);
-      subject.complete();
-    }, 2000);
-    return subject;
+    return this.http.get<IEvent[]>('/api/events')
+                    .pipe(catchError(this.handleError<IEvent[]>('getEvents', []) ) ) ;
+                    // Should this method encounter an error we will see 'getEvents' in the logs
+                    // The empty array, [], is the default results and its type matches what we "promised" to return.
+  }
+
+  // Generic way of handling error and still return an observable
+  private handleError<T> (operation = 'operation', result?: T) {
+    // We take in an error and will return an observable
+    // of the SAME type as the one specified in the result's field.
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 
   getEvent(id: number): IEvent {
