@@ -28,7 +28,6 @@ export class NavBarComponent implements OnInit {
       // returns observable which is an array of ISession, therefore for each of these array assign them to our local variable
       sessions => {
         this.foundSessions = sessions ;
-        console.log(this.foundSessions);
       }
     );
   }

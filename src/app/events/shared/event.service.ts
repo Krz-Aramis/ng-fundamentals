@@ -40,39 +40,9 @@ export class EventService {
              .pipe(catchError(this.handleError<IEvent>('saveEvent')));
   }
 
-  searchSessions(searchTerm: string) {
-    var term = searchTerm.toLocaleLowerCase();
-    var results: ISession[] = [] ;
-    EVENTS.forEach(event => {
-      var matchingSessions = event.sessions.filter(
-        // for each sessions, let's look at its name
-        session => {
-          // return true (eg keep this session) if the term is found
-          return session.name.toLocaleLowerCase().indexOf(term) > -1;
-        }
-      );
-      // now manipulate the sessions, so that their ID correspond to their events instead.
-      // Remember 'map' returns a brand new array.
-      matchingSessions = matchingSessions.map(
-        (session: any) => {
-          // Observe:
-          // a - 'session' is the input local variable that correspond to each entry in matchingSessions
-          // b - 'event' is the input local variable from the forEach ABOVE!
-          session.eventId = event.id;
-          return session ;
-        }
-      );
-      results = results.concat(matchingSessions);
-    });
-
-    // deliver an Event asynchronously.
-    var emitter = new EventEmitter(true);
-    setTimeout(() => {
-      // wait 100 ms before supplying the results back to the caller.
-      emitter.emit(results);
-    }, 100);
-
-    return emitter;
+  searchSessions(searchTerm: string): Observable<ISession[]> {
+    return this.http.get<ISession[]>('/api/sessions/search?search=' + searchTerm )
+    .pipe(catchError(this.handleError<ISession[]>('searchSessions', []) ) ) ;
   }
 
   // Generic way of handling error and still return an observable
