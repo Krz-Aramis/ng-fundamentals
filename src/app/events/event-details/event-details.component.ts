@@ -21,18 +21,15 @@ export class EventDetailsComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.forEach(
-      // We loop through the params.
-      // as part of the fat function arrow definition, we specify the type of the inputs; here Params
-      (params: Params) => {
-        // Now that we are using a resolver, the data that we required is already present
-        // event before this component is instanciated.
-        // Therefore instead of calling AGAIN to the HTTP server, we simply load the data directly from the snapshot
-        // NOTE: the 'events' keyword correspond to the property on the object we created as part of the route resolver.
-          this.event = this.route.snapshot.data['event'];
-          this.addMode = false;
-      }
-    );
+    // Now that we are using a resolver, the data that we required is already present
+    // event before this component is instanciated.
+    // The 'data' is placed on the route object in the 'data' array.
+    this.route.data.forEach((data) => {
+      // Therefore instead of calling AGAIN to the HTTP server, we simply load the data directly from the snapshot
+      // NOTE: the 'event' keyword correspond to the property on the object we created as part of the route resolver.
+      this.event = data['event'];
+      this.addMode = false ;
+    });
   }
 
   addSession() {
