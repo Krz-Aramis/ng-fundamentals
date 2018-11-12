@@ -48,4 +48,24 @@ export class AuthService {
   isAuthenticated() {
     return !!this.currentUser;
   }
+
+  checkAuthenticationStatus() {
+    this.http.get('/api/currentIdentity')
+             .pipe(tap(
+              // The authors argue that this approach is more flexible.
+              // Indeed if the caller(s) needed to take an action based on the data supplied by the HTTP Server
+              // then all that is required would be to return the observable and have the callers subscribe.
+              // We would also need to remove the call to subscribe below.
+              // It really all depends if the consummers are doing anything, or making any decision
+              // based on the return data.
+              data => {
+                // In this implementation, the server returns null if the current user is not authenticated.
+                // Otherwise it returns the current user as an object
+                if (data instanceof Object) {
+                  this.currentUser = <IUser>data;
+                }
+              }
+            ))
+            .subscribe();
+  }
 }
