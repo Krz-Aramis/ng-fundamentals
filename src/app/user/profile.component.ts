@@ -63,6 +63,17 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.authService.logout().subscribe(
+      () => {
+        // We are on the user profile page.
+        // If the user is loging out, he/she should not remain on this page.
+        // Thus, on success, navigate to the login page.
+        this.router.navigate(['/user/login']);
+      }
+    );
+  }
+
   cancel() {
     this.router.navigate(['/events']);
   }

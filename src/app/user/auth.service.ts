@@ -49,6 +49,15 @@ export class AuthService {
                           ApplicationJsonHttpHeaders);
   }
 
+  logout() {
+    this.currentUser = undefined;
+    // This call and composition is again server implementation dependent.
+    // Observe that here we do not supply any user information. There is no ID for the server to use.
+    // The authors expect the server code to work out who is logged in and log them out accordingly.
+    // In other implementation, the body of the request could include key user information.
+    return this.http.post('/api/logout', {}, ApplicationJsonHttpHeaders);
+  }
+
   isAuthenticated() {
     return !!this.currentUser;
   }
