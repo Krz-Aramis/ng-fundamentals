@@ -43,6 +43,10 @@ export class AuthService {
   updateCurrentUser(firstName: string, lastName: string) {
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
+    return this.http.put(`/api/users/${this.currentUser.id}`,
+                          // this property on this component matches the expectations set by the HTTP server
+                          this.currentUser,
+                          ApplicationJsonHttpHeaders);
   }
 
   isAuthenticated() {
