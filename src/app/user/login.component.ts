@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   mouseoverLogin: boolean;
+  loginInvalid: boolean  = false ;
 
   constructor(
               private authService: AuthService,
@@ -22,9 +23,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   login(formValues) {
-    this.authService.loginUser(formValues.userName, formValues.password);
-    // console.log(formValues);
-    this.router.navigate(['events']);
+    this.authService.loginUser(formValues.userName, formValues.password)
+                    .subscribe(
+                      resp => {
+                        if (!resp) {
+                          // we got a false, meaning that the log in was invalid
+                          this.loginInvalid = true ;
+                        } else {
+                          // console.log(formValues);
+                          this.router.navigate(['events']);
+                        }
+                      }
+                    );
   }
 
   cancel() {
