@@ -1,9 +1,10 @@
-import {catchError} from 'rxjs/internal/operators';
 import { Injectable, EventEmitter } from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators';
+
 import { IEvent, ISession } from './index';
-import { handleError } from '../../common/handle-error.function';
+import { handleError, ApplicationJsonHttpHeaders } from '../../common/index';
 
 @Injectable()
 export class EventService {
@@ -23,27 +24,20 @@ export class EventService {
   }
 
   saveEvent(newEvent: IEvent) {
-    let options = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json'
-        }
-      )
-    };
     // We care about the data is coming back from the server here (but not always).
     // Remember that in this application, the use does not specify the required field ID (for the event).
     // This will be worked out server-side, thus our application needs to obtain the updated Event object.
     return this.http.post<IEvent>('/api/events',
                             // Set the body of the request to be the newEvent object passed-in
                             newEvent,
-                            options
+                            ApplicationJsonHttpHeaders
                           )
-             .pipe(catchError(handleError<IEvent>('saveEvent')));
+                    .pipe(catchError(handleError<IEvent>('saveEvent')));
   }
 
   searchSessions(searchTerm: string): Observable<ISession[]> {
     return this.http.get<ISession[]>('/api/sessions/search?search=' + searchTerm )
-    .pipe(catchError(handleError<ISession[]>('searchSessions', []) ) ) ;
+                    .pipe(catchError(handleError<ISession[]>('searchSessions', []) ) ) ;
   }
 }
 

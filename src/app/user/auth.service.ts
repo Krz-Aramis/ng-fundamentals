@@ -1,8 +1,10 @@
-import {of} from 'rxjs';
-import {catchError, tap} from 'rxjs/internal/operators';
 import { Injectable } from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/internal/operators';
+
 import { IUser } from './user.model';
+import { ApplicationJsonHttpHeaders } from '../common/application-json.http-headers';
 
 @Injectable()
 export class AuthService {
@@ -14,15 +16,8 @@ export class AuthService {
     // the shape of the object below is dependent on the desing
     // of the server. In this case, the back-end uses Passport
     // which defines the object with all lowercase keys.
-    let loginInfo = {username: userName, password: password };
-    let options = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json'
-        }
-      )
-    };
-    return  this.http.post('/api/login', loginInfo, options)
+    const loginInfo = {username: userName, password: password };
+    return  this.http.post('/api/login', loginInfo, ApplicationJsonHttpHeaders)
                       .pipe(
                         // this operator allows to act on the incoming observable data.
                         // It is typically meant to create side effects.

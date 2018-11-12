@@ -4,3 +4,4 @@ export * from './jQuery.service';
 export * from './simple-modal.component';
 export * from './modal-trigger.directive';
 export * from './handle-error.function';
+export * from './application-json.http-headers';

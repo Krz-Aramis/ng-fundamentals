@@ -1,8 +1,9 @@
-import {catchError} from 'rxjs/internal/operators';
 import { Injectable } from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/internal/operators';
+
 import { ISession } from '../shared/session.model';
-import { handleError } from '../../common/handle-error.function';
+import { handleError, ApplicationJsonHttpHeaders } from '../../common/index';
 
 @Injectable()
 export class VoterService {
@@ -26,17 +27,10 @@ export class VoterService {
   addVoter(eventId: number, session: ISession, userName: string ) {
     session.voters.push(userName);
     const url = `/api/events/${eventId}/sessions/${session.id}/voters/${userName}`;
-    let options = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json'
-        }
-      )
-    };
     this.http.post(url,
                    // passing an empty object as the body as the URL has all the data required for this call.
                    {},
-                   options)
+                   ApplicationJsonHttpHeaders)
               .pipe(catchError(handleError('addVoter')) )
               // self-subscribe instead of returning an observable. We know, by design, the caller is not expecting data.
               .subscribe();
