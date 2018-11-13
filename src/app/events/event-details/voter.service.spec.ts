@@ -58,6 +58,7 @@ describe('VoterService', () => {
                               // We do not have access to the options, however it is fairly simple,
                               // so let's assume that there is an object here.
                               jasmine.any(Object));
+    });
   });
 
 });
