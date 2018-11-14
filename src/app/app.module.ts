@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 import {
   EventsListComponent,
@@ -22,8 +25,7 @@ import {
 
 import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
-import { TOASTR_TOKEN,
-         Toastr,
+import { ToastrService,
          CollapsibleWellComponent,
          JQ_TOKEN,
          SimpleModalComponent,
@@ -62,13 +64,12 @@ declare let jQuery: Object;
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
+    ToastrModule.forRoot()
   ],
   providers: [EventService,
-              {
-                provide: TOASTR_TOKEN,
-                useValue: toastr
-              },
+              ToastrService,
               {
                 provide: JQ_TOKEN,
                 useValue: jQuery

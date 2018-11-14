@@ -19,12 +19,12 @@ export class NavBarComponent implements OnInit {
   foundSessions: ISession[];
   displayedEvents: IEvent[];
 
-  constructor(private auth: AuthService,
+  constructor(public auth: AuthService,
               private eventService: EventService) { }
 
   ngOnInit() {
     this.eventService.getEvents().subscribe(
-      (events:IEvent[]) => {
+      (events: IEvent[]) => {
         this.displayedEvents = events;
       }
     );

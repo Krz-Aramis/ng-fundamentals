@@ -2,7 +2,7 @@ import {Router} from '@angular/router';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from './auth.service';
-import { TOASTR_TOKEN, Toastr } from '../common/index';
+import { ToastrService } from '../common/index';
 
 @Component({
   templateUrl: './profile.component.html',
@@ -25,8 +25,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              // Allows Angular to look-up the injection registry
-              @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.firstName = new FormControl(this.authService.currentUser.firstName,
