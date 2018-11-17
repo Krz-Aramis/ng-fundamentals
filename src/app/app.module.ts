@@ -27,19 +27,13 @@ import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
 import { ToastrService,
          CollapsibleWellComponent,
-         JQ_TOKEN,
+         JQUERY_PROVIDER,
          SimpleModalComponent,
          ModalTriggerDirective
 } from './common/index' ;
 import { appRoutes } from '../routes';
 import { Error404Component } from './error/404.component';
 import { AuthService } from './user/auth.service';
-
-// This let's Angular know that there ALREADY is a global object named toastr.
-declare let toastr: Toastr;
-declare let jQuery: Object;
-//declare let jQuery: window['$'];
-//let jQuery: window['$'];
 
 @NgModule({
   declarations: [
@@ -70,11 +64,8 @@ declare let jQuery: Object;
   ],
   providers: [EventService,
               ToastrService,
-              {
-                provide: JQ_TOKEN,
-                useValue: jQuery
-              },
               EventResolver,
+              JQUERY_PROVIDER,
               {
                 provide: 'canDeactivateCreateEvent',
                 useValue: checkDirtyState
