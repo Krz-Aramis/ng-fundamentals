@@ -1,3 +1,13 @@
+# Getting Started
+
+This project currently requires the following:
+
+1. On Windows, install NVM manager.
+2. Ensure that Node version 8.11.2 is installed through nvm.
+3. Use the command `nvm use 8.11.2` to switch to this version of Node.
+4. This code for this application stems from the work on the Pluralsight course _Getting Started With Angular_ which assumes that the Angular version is 6.0.8, thus we need to install this version of Angular using the command `npm install -s @angular/cli@6.0.8`.
+5. For reasons unknown, it might be necessary to forceably install `ngf-bootstrap` despite the fact that, it is already listed in the `package.json`. It would appear that `npm` is not installing all the sub-dependencies.
+
 # NgFundamentals
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
