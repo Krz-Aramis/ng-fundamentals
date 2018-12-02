@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+
+  # This container redirects to each available node within the cluster,
+  # so that the "app" and its APIs are never directly exposed.
+  ngnix:
+    container_name: ${FRONT_END_CONTAINER}
+    build:
+      context: .
+      dockerfile: ${FRONT_END_CONTAINER}.dockerfile
+    image: ${FRONT_END_CONTAINER}:${FRONT_END_VERSION}
+    ports:
+      - "${CLUSTER_PORT}:${FRONT_END_PORT}"
+    networks:
+      - app-network
+
+  web:
+    # The application is served by NGNIX on 80
+    container_name: ${WEB_APP_NAME}
+    build:
+      context: .
+      dockerfile: ${WEB_APP_NAME}.prod.dockerfile
+    image: ${WEB_APP_NAME}:${WEB_APP_VERSION}
+    networks:
+      - app-network
+
+  api:
+    container_name: ${API_SERVER_NAME}
+    # We use a specific version of the image from the NGF-Server project.
+    image: ${API_SERVER_NAME}:${API_SERVER_VERSION}
+    # This is not necessary. All this achieves is making the server accessible from the outside world.
+    #ports:
+    #  - "8808:8808"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external:
+      name: app-network
