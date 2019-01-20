@@ -1,5 +1,13 @@
 # NG-Fundamentals - Project notes
 
+## TODO
+
+1. Change the `.env` file so that the cluster is served from 80 by default.
+2. Fix the `docker-compose.yml` file so that it uses `links` instead of defining uselessly an external network.
+3. Record, somehow, that it is also possible to re-write calls to `/api`. At time of writing, we are using `proxy_pass`. It might be useful to capture a working example of re-writing too!
+4. Investigate how to debug the requests that should flow between the front-end gateway and the `nfg-serever` container.
+5. Instead of planning for `ngf-server` to be a `git submodule`, modify the compose file instead to make reference to the Github repostiry.
+
 ## Getting Started
 
 This project currently requires the following:
